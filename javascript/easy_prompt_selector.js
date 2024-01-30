@@ -39,6 +39,8 @@ class EPSElementBuilder {
     const container = gradioApp().getElementById('txt2img_results').cloneNode()
     container.id = id
     container.style.gap = 0
+    container.style.display = 'flex'
+    container.className = ""
 
     return container
   }
@@ -165,8 +167,6 @@ class EasyPromptSelector {
     row.style.gap = '10px'
 
     const dropDown = this.renderDropdown()
-    dropDown.style.flex = '1'
-    dropDown.style.minWidth = '1'
     row.appendChild(dropDown)
 
     const container = EPSElementBuilder.areaContainer(this.AREA_ID)
