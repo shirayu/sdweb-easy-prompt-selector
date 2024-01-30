@@ -1,8 +1,8 @@
 # Easy Prompt Selector
 
-## Modification if fork
+## Modification in fork
 
-- Removed checkbox to insert negative prompt (aca4127)
+- Removed checkbox to insert negative prompt and use special prefix "--" (aca4127)
 
 ## English Readme
 
