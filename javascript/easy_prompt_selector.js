@@ -123,7 +123,6 @@ class EasyPromptSelector {
     this.yaml = yaml
     this.gradioApp = gradioApp
     this.visible = false
-    this.toNegative = false
     this.tags = undefined
   }
 
@@ -177,15 +176,6 @@ class EasyPromptSelector {
     dropDown.style.flex = '1'
     dropDown.style.minWidth = '1'
     row.appendChild(dropDown)
-
-    const settings = document.createElement('div')
-    const checkbox = EPSElementBuilder.checkbox('ネガティブプロンプトに入力', {
-      onChange: (checked) => { this.toNegative = checked }
-    })
-    settings.style.flex = '1'
-    settings.appendChild(checkbox)
-
-    row.appendChild(settings)
 
     const container = EPSElementBuilder.areaContainer(this.AREA_ID)
 
@@ -249,7 +239,6 @@ class EasyPromptSelector {
         fields.style.flexDirection = 'column'
 
         fields.append(this.renderTagButton(key, `@${randomKey}@`))
-
         const buttons = EPSElementBuilder.tagFields()
         buttons.id = 'buttons'
         fields.append(buttons)
@@ -263,17 +252,21 @@ class EasyPromptSelector {
   }
 
   renderTagButton(title, value, color = 'primary') {
+    const toNegative = value.startsWith("--");
+    if (toNegative){
+        value = value.substring(2);
+    }
     return EPSElementBuilder.tagButton({
       title,
       onClick: (e) => {
         e.preventDefault();
 
-        this.addTag(value, this.toNegative || e.metaKey || e.ctrlKey)
+        this.addTag(value, toNegative || e.metaKey || e.ctrlKey)
       },
       onRightClick: (e) => {
         e.preventDefault();
 
-        this.removeTag(value, this.toNegative || e.metaKey || e.ctrlKey)
+        this.removeTag(value, toNegative || e.metaKey || e.ctrlKey)
       },
       color
     })
