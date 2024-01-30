@@ -1,6 +1,8 @@
 # Easy Prompt Selector
 
-[使い方(暫定)](https://blue-pen5805.fanbox.cc/posts/5306601)
+## Modification if fork
+
+- Removed checkbox to insert negative prompt (aca4127)
 
 ## English Readme
 
