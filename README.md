@@ -3,6 +3,7 @@
 ## Modification in fork
 
 - Removed checkbox to insert negative prompt and use special prefix "--" (aca4127)
+- Select default.yml as default
 
 ## English Readme
 

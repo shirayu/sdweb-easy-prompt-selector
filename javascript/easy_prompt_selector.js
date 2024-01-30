@@ -122,6 +122,15 @@ class EasyPromptSelector {
     gradioApp()
       .getElementById('txt2img_toprow')
       .after(this.render())
+
+
+    const select = gradioApp().getElementById(this.SELECT_ID)
+    const defaultOption = Array.from(select.options).find(option => option.value === "default");
+    if (defaultOption) {
+      defaultOption.selected = true;
+      select.dispatchEvent(new Event("change"));
+    }
+
   }
 
   async readFile(filepath) {
