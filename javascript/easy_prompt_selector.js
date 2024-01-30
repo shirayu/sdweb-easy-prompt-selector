@@ -35,19 +35,10 @@ class EPSElementBuilder {
   }
 
   // Elements
-  static openButton({ onClick }) {
-    const button = EPSElementBuilder.baseButton('🔯タグを選択', { size: 'sm', color: 'secondary' })
-    button.classList.add('easy_prompt_selector_button')
-    button.addEventListener('click', onClick)
-
-    return button
-  }
-
   static areaContainer(id = undefined) {
     const container = gradioApp().getElementById('txt2img_results').cloneNode()
     container.id = id
     container.style.gap = 0
-    container.style.display = 'none'
 
     return container
   }
@@ -122,19 +113,11 @@ class EasyPromptSelector {
   constructor(yaml, gradioApp) {
     this.yaml = yaml
     this.gradioApp = gradioApp
-    this.visible = false
     this.tags = undefined
   }
 
   async init() {
     this.tags = await this.parseFiles()
-
-    const tagArea = gradioApp().querySelector(`#${this.AREA_ID}`)
-    if (tagArea != null) {
-      this.visible = false
-      this.changeVisibility(tagArea, this.visible)
-      tagArea.remove()
-    }
 
     gradioApp()
       .getElementById('txt2img_toprow')
@@ -311,13 +294,6 @@ onUiLoaded(async () => {
   yaml = window.jsyaml
   const easyPromptSelector = new EasyPromptSelector(yaml, gradioApp())
 
-  const button = EPSElementBuilder.openButton({
-    onClick: () => {
-      const tagArea = gradioApp().querySelector(`#${easyPromptSelector.AREA_ID}`)
-      easyPromptSelector.changeVisibility(tagArea, easyPromptSelector.visible = !easyPromptSelector.visible)
-    }
-  })
-
   const reloadButton = gradioApp().getElementById('easy_prompt_selector_reload_button')
   reloadButton.addEventListener('click', async () => {
     await easyPromptSelector.init()
@@ -326,7 +302,6 @@ onUiLoaded(async () => {
   const txt2imgActionColumn = gradioApp().getElementById('txt2img_actions_column')
   const container = document.createElement('div')
   container.classList.add('easy_prompt_selector_container')
-  container.appendChild(button)
   container.appendChild(reloadButton)
 
   txt2imgActionColumn.appendChild(container)
